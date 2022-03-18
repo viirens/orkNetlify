@@ -1,0 +1,32 @@
+.test {
+  color: white;
+}
+
+.viewPort {
+  height: 400px;
+  width: 600px;
+  background-color: rgb(219, 202, 202);
+  /* display: flex;
+  align-items: flex-end; */
+  position: relative;
+}
+
+.player {
+  width: 150px;
+  height: 250px;
+  background: white;
+  position: absolute;
+
+  bottom: 0;
+  left: 15%;
+}
+
+.ork {
+  width: 150px;
+  height: 250px;
+  background-color: green;
+
+  position: absolute;
+  bottom: 0;
+  right: 15%;
+}

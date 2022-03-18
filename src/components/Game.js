@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import ROLES from './components/roles'
+import ROLES from './roles'
 import PlayerContext from './PlayerContext'
 
 
@@ -8,7 +8,8 @@ const Game = () => {
   let player = {...ROLES['guardsmen(trooper)']};
   let computer = {...ROLES['boy(fighter)']}
 
-  const { playerPos, setPlayerPos } = useContext(PlayerContext);
+  const { setPlayerPos } = useContext(PlayerContext);
+  const { setEnemyPos } = useContext(PlayerContext);
 
   const [ playerHand, setPlayerHand ] = useState([])
   const [ computerHand, setComputerHand] = useState([])
@@ -23,8 +24,12 @@ const Game = () => {
   const [ playerGoneThisRound, setPlayerGoneThisRound ] = useState(false)
   const [ winTracker, setWinTracker ] = useState({player: 0, computer: 0})
 
-  const playerAttack = () => {
-    setPlayerPos(playerPos + 200);
+  const playerAttackAnim = () => {
+    setPlayerPos(true);
+  }
+
+  const enemyAttackAnim = () => {
+    setEnemyPos(true);
   }
 
   const rollDice = () => {    
@@ -76,7 +81,7 @@ const Game = () => {
   }
 
   const Attack = () => {
-    playerAttack();
+    playerAttackAnim();
     if (6 === +diToAct) {
       setComputerHealth(computerHealth - player.weapons.damage.critical < 0 ? 0 : computerHealth - player.weapons.damage.critical)
       
@@ -171,6 +176,7 @@ const Game = () => {
         setComputerHand(computerHand.slice(0, computerHand.indexOf(di))
           .concat(computerHand.slice(computerHand.indexOf(di) + 1, computerHand.length)))
       }
+      enemyAttackAnim();
       console.log('Computer Attacked') //used to see action Ork took in console when debugging
     } else {
       let diceToParry;
@@ -271,11 +277,11 @@ const Game = () => {
     
   return(
     <div>
-        <h1>Punch An Ork</h1>
         <p>Player Health: {playerHealth} || Ork Health: {computerHealth}</p>
         <p>Player Dice: {playerHand} || Ork Dice: {computerHand}</p>
         <DisplayCurrentButtons />
-        <button onClick={playerAttack}>attck</button>
+        {/* button for testing */}
+        {/* <button onClick={playerAttackAnim}>attck</button> */}
         <p>Orks Killed: {winTracker.player} || Guardsmen Lost: {winTracker.computer} || Win Rate: { winTracker.computer === 0 ? 0 : Math.round((winTracker.player / winTracker.computer) * 100)}%</p>
     </div>
   )
