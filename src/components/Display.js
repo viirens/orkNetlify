@@ -1,7 +1,39 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useRef, useEffect} from 'react'
 import { useSpring, animated } from 'react-spring'
 import PlayerContext from './PlayerContext'
 import '../styles/display.css'
+import styles from '../styles/display.css'
+
+const HealthBar = (props) => {
+
+  const { computerHealth, playerHealth, maxComputerHealth, maxPlayerHealth } = useContext(PlayerContext);
+  const [ percentFull, setPercentFull ] = useState(false);
+  const health = props.entity === 'player' ? playerHealth : computerHealth;
+  const maxHealth = props.entity === 'player' ? maxPlayerHealth: maxComputerHealth;
+  const mainStyle = props.entity === 'player' ? "main": "main enemyMain";
+
+  const ref = useRef(null);
+
+
+// console.log(props.entity);
+
+  useEffect(() => {
+    let outerHeight = ref.current.clientHeight;
+    let percentage  = Math.floor((health / maxHealth) * outerHeight);
+    setPercentFull(percentage);
+  })
+
+  const textProps = useSpring({ height: health });
+  const fillProps = useSpring({ height: percentFull });
+
+  return (
+      <div className={mainStyle} ref={ref}>
+        <animated.div className="fill" style={fillProps} />
+        <animated.div className="content">{textProps.height.to(x => x.toFixed(0))}</animated.div>
+      </div>
+  )
+}
+
 
 const Display = () => {
 
@@ -39,8 +71,11 @@ const Display = () => {
   // console.log(playerPos);
   return (
     <div className="viewPort">
+      <HealthBar entity='player'/>
       <animated.div style={{...playerAttack }} className="player">player</animated.div>
       <animated.div style={{...enemyAttack }} className="ork" >ork</animated.div>
+      <HealthBar entity='enemy'/>
+
     </div>
   );
 }
