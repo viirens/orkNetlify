@@ -11,11 +11,11 @@ const Game = () => {
   const { setPlayerPos } = useContext(PlayerContext);
   const { setEnemyPos } = useContext(PlayerContext);
 
+  const { computerHealth, setComputerHealth } = useContext(PlayerContext)
+  const { playerHealth, setPlayerHealth } = useContext(PlayerContext)
+
   const [ playerHand, setPlayerHand ] = useState([])
   const [ computerHand, setComputerHand] = useState([])
-
-  const [ computerHealth, setComputerHealth ] = useState(computer.stats.wounds)
-  const [ playerHealth, setPlayerHealth ] = useState(player.stats.wounds)
   
   const [ diToAct, setDiToAct ] = useState('')
 
@@ -277,7 +277,7 @@ const Game = () => {
     
   return(
     <div>
-        <p>Player Health: {playerHealth} || Ork Health: {computerHealth}</p>
+        {/* <p>Player Health: {playerHealth} || Ork Health: {computerHealth}</p> */}
         <p>Player Dice: {playerHand} || Ork Dice: {computerHand}</p>
         <DisplayCurrentButtons />
         {/* button for testing */}
