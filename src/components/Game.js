@@ -5,11 +5,11 @@ import PlayerContext from './PlayerContext'
 
 const Game = () => {
 
-  let player = {...ROLES['guardsmen(trooper)']};
+  let player = {...ROLES['guardsmen(trooper)']}
   let computer = {...ROLES['boy(fighter)']}
 
-  const { setPlayerPos } = useContext(PlayerContext);
-  const { setEnemyPos } = useContext(PlayerContext);
+  const { setPlayerPos } = useContext(PlayerContext)
+  const { setEnemyPos } = useContext(PlayerContext)
 
   const { computerHealth, setComputerHealth } = useContext(PlayerContext)
   const { playerHealth, setPlayerHealth } = useContext(PlayerContext)
@@ -25,11 +25,11 @@ const Game = () => {
   const [ winTracker, setWinTracker ] = useState({player: 0, computer: 0})
 
   const playerAttackAnim = () => {
-    setPlayerPos(true);
+    setPlayerPos(true)
   }
 
   const enemyAttackAnim = () => {
-    setEnemyPos(true);
+    setEnemyPos(true)
   }
 
   const rollDice = () => {    
@@ -143,7 +143,7 @@ const Game = () => {
       <div>
         { diToAct === '' ? '' : String.fromCharCode(9855 + diToAct)}
         <button onClick={Attack}>Attack</button>
-        {diToAct <= 5 && computerHand.every(element => element === 6) || computerHand.length === 0 ? '' : <button onClick={Parry}>Parry</button>} 
+        {(diToAct <= 5 && computerHand.every(element => element === 6)) || (computerHand.length === 0 ? '' : <button onClick={Parry}>Parry</button>)} 
         <button onClick={Run}>Run</button>
       </div>
 
