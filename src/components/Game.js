@@ -276,16 +276,14 @@ const Game = () => {
   }
     
   return(
-    <div>
-        {/* <p>Player Health: {playerHealth} || Ork Health: {computerHealth}</p> */}
-        <p>Player Dice: {playerHand} || Ork Dice: {computerHand}</p>
-        <DisplayCurrentButtons />
-        {/* button for testing */}
-        {/* <button onClick={playerAttackAnim}>attck</button> */}
-        <p>Orks Killed: {winTracker.player} || Guardsmen Lost: {winTracker.computer} || Win Rate: { winTracker.computer === 0 ? 0 : Math.round((winTracker.player / winTracker.computer) * 100)}%</p>
+    <div className="userInterface">
+        <ul className ="readout">
+          <li className="dice">Player Dice: {playerHand} || Ork Dice: {computerHand}</li>
+          <li className="info">Orks Killed: {winTracker.player} || Guardsmen Lost: {winTracker.computer} || Win Rate: { winTracker.computer === 0 ? 0 : Math.round((winTracker.player / winTracker.computer) * 100)}%</li>
+        </ul>
+        <DisplayCurrentButtons className="buttons"/>
     </div>
   )
-
 }
 
 export default Game;

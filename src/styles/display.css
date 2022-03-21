@@ -5,7 +5,7 @@
 .viewPort {
   height: 400px;
   width: 600px;
-  background-color: rgb(219, 202, 202);
+  background-color: rgb(208, 224, 200);
   position: relative;
 }
 
@@ -14,25 +14,29 @@
   height: 250px;
   background: white;
   position: absolute;
-
   bottom: 0;
   left: 15%;
+  border-top-right-radius: 80px;
 }
 
 .ork {
   width: 150px;
   height: 250px;
-  background-color: green;
+  background-color: rgb(0, 209, 0);
   position: absolute;
   bottom: 0;
   right: 15%;
+  border-top-left-radius: 80px;
 }
 
 .main {
   position: absolute;
-  width: 50px;
-  height: 200px;
+  top: calc(50% - 125px);
+  width: 30px;
+  height: 250px;
   border: 2px solid #272727;
+  border-radius: 30px;
+  margin: 10px;
   overflow: hidden;
 }
 

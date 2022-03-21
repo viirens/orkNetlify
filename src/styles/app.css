@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.userInterface {
+  text-align: center;
+}
+
+.userInterface div,
+.userInterface button {
+  font-size: 30px;
+  margin: 0 5px 0 5px;
+}
+
+.userInterface div li {
+  display: inline;
+}
+
+.readout {
+  padding: 0;
+}
+
+.readout li {
+  display: inline;
+  padding: 0 10px 0 10px;
+}
+
+/* @media (max-width: 599px) {
+  .viewPort {
+    height: 213px;
+    width: 320px;
+  }
+}
+
+@media (min-width: 600px) {
+  .viewPort {
+    height: 400px;
+    width: 600px;
+  }
+} */

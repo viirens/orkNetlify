@@ -69,8 +69,8 @@ const Display = () => {
   return (
     <div className="viewPort">
       <HealthBar entity='player'/>
-      <animated.div style={{...playerAttack }} className="player">player</animated.div>
-      <animated.div style={{...enemyAttack }} className="ork" >ork</animated.div>
+      <animated.div style={{...playerAttack }} className="player"></animated.div>
+      <animated.div style={{...enemyAttack }} className="ork" ></animated.div>
       <HealthBar entity='enemy'/>
     </div>
   );
