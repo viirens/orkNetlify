@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import {ContextProvider} from './components/PlayerContext'
 import Game from './components/Game'
 import Display from './components/Display'
+import './styles/app.css'
 
 
 const App = () => {
