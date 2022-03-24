@@ -3,44 +3,50 @@
 }
 
 .viewPort {
-  height: 400px;
-  width: 600px;
+  margin: 0 auto;
+  height: 60vw;
+  width: 90vw;
+  max-height: 400px;
+  max-width: 600px;
   background-color: rgb(208, 224, 200);
   position: relative;
+  overflow: hidden;
+}
+
+.player,
+.ork {
+  width: 20%;
+  height: 60%;
+  position: absolute;
+  bottom: 0;
 }
 
 .player {
-  width: 150px;
-  height: 250px;
   background: white;
-  position: absolute;
-  bottom: 0;
   left: 15%;
   border-top-right-radius: 80px;
 }
 
 .ork {
-  width: 150px;
-  height: 250px;
   background-color: rgb(0, 209, 0);
-  position: absolute;
-  bottom: 0;
   right: 15%;
   border-top-left-radius: 80px;
 }
 
-.main {
+.health {
   position: absolute;
-  top: calc(50% - 125px);
-  width: 30px;
-  height: 250px;
+  z-index: 50;
+  top: calc(50% - 30%);
+  width: 7%;
+  max-width: 30px;
+  height: 60%;
   border: 2px solid #272727;
   border-radius: 30px;
   margin: 10px;
   overflow: hidden;
 }
 
-.enemyMain {
+.enemyHealth {
   right: 0;
 }
 
@@ -61,5 +67,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #272727;
+  color: #000000;
+}
+
+.playerDmg,
+.enemyDmg {
+  text-align: center;
+  font-size: 30px;
+  position: absolute;
+  top: 30%;
+  background-color: orange;
+  width: 40px;
+  border-radius: 100px;
+  border: solid black;
+}
+
+.enemyDmg {
+  left: 30%;
+}
+
+.playerDmg {
+  right: 30%;
 }

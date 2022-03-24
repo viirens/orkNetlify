@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef } from 'react'
 import ROLES from './roles'
 import PlayerContext from './PlayerContext'
 
@@ -8,8 +8,11 @@ const Game = () => {
   let player = {...ROLES['guardsmen(trooper)']}
   let computer = {...ROLES['boy(fighter)']}
 
-  const { setPlayerPos } = useContext(PlayerContext)
-  const { setEnemyPos } = useContext(PlayerContext)
+  const { togglePlayerAtk, togglePlayerDeath } = useContext(PlayerContext)
+  const { toggleEnemyAtk, toggleEnemyDeath } = useContext(PlayerContext)
+  const { setPlayerDmg, setEnemyDmg } = useContext(PlayerContext)
+
+
 
   const { computerHealth, setComputerHealth } = useContext(PlayerContext)
   const { playerHealth, setPlayerHealth } = useContext(PlayerContext)
@@ -24,12 +27,23 @@ const Game = () => {
   const [ playerGoneThisRound, setPlayerGoneThisRound ] = useState(false)
   const [ winTracker, setWinTracker ] = useState({player: 0, computer: 0})
 
+
+  // const [ delay, set] = useState(false)
+
   const playerAttackAnim = () => {
-    setPlayerPos(true)
+    togglePlayerAtk(true)
+  }
+
+  const playerDeathAnim = () => {
+    togglePlayerDeath(true);
   }
 
   const enemyAttackAnim = () => {
-    setEnemyPos(true)
+    toggleEnemyAtk(true)
+  }
+
+  const enemyDeathAnim = () => {
+    toggleEnemyDeath(true);
   }
 
   const rollDice = () => {    
@@ -83,6 +97,7 @@ const Game = () => {
   const Attack = () => {
     playerAttackAnim();
     if (6 === +diToAct) {
+      setPlayerDmg(player.weapons.damage.critical)
       setComputerHealth(computerHealth - player.weapons.damage.critical < 0 ? 0 : computerHealth - player.weapons.damage.critical)
       
       if (computerHand.length === 0) {
@@ -96,6 +111,7 @@ const Game = () => {
       }
 
     } else {
+      setPlayerDmg(player.weapons.damage.regular)
       setComputerHealth(computerHealth - player.weapons.damage.regular < 0 ? 0 : computerHealth - player.weapons.damage.regular)
         
       if (computerHand.length === 0) {
@@ -135,6 +151,7 @@ const Game = () => {
   }
 
   const Run = () => {
+    // Todo
   }
 
 
@@ -157,9 +174,7 @@ const Game = () => {
   }
 
   const ContinueRoundButton = () => {
-    return (
-      <button onClick={TurnController}>Continue</button>
-    )
+    return <button onClick={TurnController}>Continue</button>
   }
 
 
@@ -167,10 +182,12 @@ const Game = () => {
     if ((playerHand.every(element => element === 6) && (computerHand.every(element => element < 6))) || (playerHealth <= computer.weapons.damage.critical) || 
       (computerHealth > player.weapons.damage.critical) || playerHand.length === 0) {
       if (computerHand.includes(6)) {
+        setEnemyDmg(computer.weapons.damage.critical)
         setPlayerHealth(playerHealth - computer.weapons.damage.critical < 0 ? 0 : playerHealth - computer.weapons.damage.critical);
         setComputerHand(computerHand.slice(0, computerHand.indexOf(6))
           .concat(computerHand.slice(computerHand.indexOf(6) + 1, computerHand.length)))
       } else {
+        setEnemyDmg(computer.weapons.damage.regular)
         setPlayerHealth(playerHealth - computer.weapons.damage.regular < 0 ? 0 : playerHealth - computer.weapons.damage.regular);
         let di = computerHand.find(element => element !== 6)
         setComputerHand(computerHand.slice(0, computerHand.indexOf(di))
@@ -206,12 +223,13 @@ const Game = () => {
   }
 
   const TurnController = () => {
+
     if (playerHealth <= 0) {
       setWinTracker(prevState => {
         return { ...prevState, computer: prevState.computer + 1 }
       })
 
-      
+      playerDeathAnim()      
       setPlayerHand([])
       setComputerHand([])
       // setComputerHealth(computer.stats.wounds) **Prevents Reset of Health Each Round
@@ -223,6 +241,7 @@ const Game = () => {
         return { ...prevState, player: prevState.player + 1 }
       })
 
+      enemyDeathAnim()
       setPlayerHand([])
       setComputerHand([])
       setComputerHealth(computer.stats.wounds)
@@ -244,6 +263,7 @@ const Game = () => {
   }
 
   const DisplayCurrentButtons = () => {
+    
     if (turnTracker === 'Roll') {
       return (
         <RollButton/>
@@ -274,6 +294,23 @@ const Game = () => {
       )
     }
   }
+
+  const ButtonDelay = () => {
+
+    // async function test() {
+    //   const waitFor = delay => new Promise(resolve => setTimeout(resolve, delay))
+    //   await waitFor(3000);
+    //   set(true)
+    // }
+  
+    // test()
+
+   return <DisplayCurrentButtons className="buttons"/>
+    // else return ""
+  }
+
+  
+
     
   return(
     <div className="userInterface">
@@ -281,7 +318,8 @@ const Game = () => {
           <li className="dice">Player Dice: {playerHand} || Ork Dice: {computerHand}</li>
           <li className="info">Orks Killed: {winTracker.player} || Guardsmen Lost: {winTracker.computer} || Win Rate: { winTracker.computer === 0 ? 0 : Math.round((winTracker.player / winTracker.computer) * 100)}%</li>
         </ul>
-        <DisplayCurrentButtons className="buttons"/>
+        {/* <DisplayCurrentButtons className="buttons"/> */}
+        <ButtonDelay />
     </div>
   )
 }
