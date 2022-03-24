@@ -51,7 +51,7 @@ const DamageReadout = (props) => {
     config: {
       duration: 700
     },
-    delay: 300,
+    delay: 500,
     reset: true,
   })
 
